@@ -9,7 +9,9 @@ use Illuminate\Support\Str;
 class CategoryFactory extends Factory
 {
     /**
-     * @var string
+     * The name of the factory's corresponding model.
+     *
+     * @var class-string<\Illuminate\Database\Eloquent\Model>
      */
     protected $model = Category::class;
 
@@ -22,7 +24,7 @@ class CategoryFactory extends Factory
     {
         return [
             'name' => $name = fake()->unique()->words(3, true),
-            'slug' => Str::slug($name),
+            'slug' => Str::slug($name, language: app()->getLocale()),
             'description' => fake()->realText(),
             'is_visible' => fake()->boolean(),
             'created_at' => fake()->dateTimeBetween('-1 year', '-6 month'),

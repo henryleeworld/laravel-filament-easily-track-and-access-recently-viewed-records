@@ -8,7 +8,9 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 class AuthorFactory extends Factory
 {
     /**
-     * @var string
+     * The name of the factory's corresponding model.
+     *
+     * @var class-string<\Illuminate\Database\Eloquent\Model>
      */
     protected $model = Author::class;
 

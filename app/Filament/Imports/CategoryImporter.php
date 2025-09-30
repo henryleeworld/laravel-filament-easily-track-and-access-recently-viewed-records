@@ -36,6 +36,17 @@ class CategoryImporter extends Importer
         ];
     }
 
+    public static function getCompletedNotificationBody(Import $import): string
+    {
+        $body = 'Your category import has been completed and ' . number_format($import->successful_rows) . ' ' . __(str('row')->plural($import->successful_rows)) . ' imported.';
+
+        if ($failedRowsCount = $import->getFailedRowsCount()) {
+            $body .= ' ' . number_format($failedRowsCount) . ' ' . __(str('row')->plural($failedRowsCount)) . __(' failed to import.');
+        }
+
+        return $body;
+    }
+
     /**
      * @return class-string<Model>
      */
@@ -49,16 +60,5 @@ class CategoryImporter extends Importer
         return Category::firstOrNew([
             'slug' => $this->data['slug'],
         ]);
-    }
-
-    public static function getCompletedNotificationBody(Import $import): string
-    {
-        $body = 'Your category import has been completed and ' . number_format($import->successful_rows) . ' ' . __(str('row')->plural($import->successful_rows)) . ' imported.';
-
-        if ($failedRowsCount = $import->getFailedRowsCount()) {
-            $body .= ' ' . number_format($failedRowsCount) . ' ' . __(str('row')->plural($failedRowsCount)) . __(' failed to import.');
-        }
-
-        return $body;
     }
 }

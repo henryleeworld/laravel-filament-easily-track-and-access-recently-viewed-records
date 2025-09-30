@@ -12,7 +12,9 @@ class PostFactory extends Factory
     use CanCreateImages;
 
     /**
-     * @var string
+     * The name of the factory's corresponding model.
+     *
+     * @var class-string<\Illuminate\Database\Eloquent\Model>
      */
     protected $model = Post::class;
 
@@ -25,7 +27,7 @@ class PostFactory extends Factory
     {
         return [
             'title' => $title = fake()->unique()->sentence(4),
-            'slug' => Str::slug($title),
+            'slug' => Str::slug($title, language: app()->getLocale()),
             'content' => fake()->realText(),
             'image' => $this->createImage(),
             'published_at' => fake()->dateTimeBetween('-6 month', '+1 month'),
